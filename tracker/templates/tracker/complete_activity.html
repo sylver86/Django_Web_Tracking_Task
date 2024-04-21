@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card bg-dark text-white">
+        <div class="card-body">
+            <h1>Completa Attività:</h1>
+            <!-- Form per completare un'attività -->
+            <form method="post">
+                {% csrf_token %}
+                <p>Attività: {{ log.activity.name }}</p>
+                <!-- Mostra l'ultima data disponibile come "Stato attuale" -->
+                <p>Stato attuale: 
+                    {% if latest_activity_log %}
+                        {{ latest_activity_log.date }}
+                    {% else %}
+                        Nessuna data disponibile
+                    {% endif %}
+                </p>
+                <button type="submit" class="btn btn-primary">Registra</button>
+            </form>
+            <a href="{% url 'home' %}" class="btn btn-secondary mt-2">Torna alla Home</a>
+       
+            <!-- Tabella per visualizzare i campi date degli activity logs -->
+            <div class="table-responsive mt-4">
+                <table class="table table-bordered table-striped bg-light">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Registrazioni Effettuate:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in activity_logs %}
+                        <tr>
+                            <td>{{ log.date|date:"Y-m-d H:i:s" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginazione -->
+            {% if activity_logs.has_other_pages %}
+            <nav aria-label="Activity log pagination">
+                <ul class="pagination justify-content-center mt-4">
+                    {% if activity_logs.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ activity_logs.previous_page_number }}">Previous</a>
+                    </li>
+                    {% endif %}
+                    {% for num in activity_logs.paginator.page_range %}
+                    <li class="page-item {% if activity_logs.number == num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endfor %}
+                    {% if activity_logs.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ activity_logs.next_page_number }}">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

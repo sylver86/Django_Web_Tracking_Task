@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card bg-dark text-white">
+      <div class="card-body">
+       
+<h1 class="card-title">{% if not form.instance.pk %}Aggiungi Task: {% else %} Modifica Task: {% endif %}</h1>  <!-- Cambia il titolo in base se l'attività è nuova o esistente -->
+
+  <form method="post">
+    {% csrf_token %}  <!-- Token CSRF per proteggere da attacchi CSRF -->
+    {{ form.as_p }}  <!-- Renderizza ogni campo del form come paragrafo -->
+    <button type="submit" class="btn btn-primary">Salva</button>
+  </form>
+  </div>
+  </div>
+  </div>
+{% endblock %}

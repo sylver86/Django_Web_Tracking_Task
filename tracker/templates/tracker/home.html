@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<style>
+    /* Stili personalizzati per i pulsanti */
+    .btn-custom {
+        background-color: #6c757d; /* Colore grigio Bootstrap */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 0.25rem 0.5rem; /* Padding ridotto per pulsanti più sottili */
+        font-size: 0.8rem; /* Dimensione del font ridotta */
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        margin: 2px;
+    }
+    
+    .btn-custom:hover, .btn-custom:focus {
+        background-color: #5a6268; /* Colore grigio più scuro al passaggio del mouse */
+        transform: translateY(-2px); /* Leggero effetto di sollevamento */
+    }
+
+    .btn-custom:active {
+        background-color: #545b62; /* Colore grigio ancora più scuro quando premuto */
+        transform: translateY(1px); /* Ritorno alla posizione */
+    }
+</style>
+
+<!-- Container per l'elenco delle attività -->
+<div class="container mt-5">
+    <div class="card bg-dark text-white">
+        <div class="card-body">
+            <h1 class="card-title">Elenco delle Attività</h1>
+            <ul class="list-group list-group-flush">
+                {% for activity in activities %}
+                <li class="list-group-item bg-dark d-flex justify-content-between align-items-center" style="height: 35px;"> <!-- Altezza ridotta per riga -->
+                    <span>{{ activity.name }}</span>
+                    <div>
+                        <span>
+                            {% if completion_percentage and activity.id in completion_percentage %}
+                            {{ completion_percentage|get_item:activity.id }}%
+                            {% else %}
+                            0%
+                            {% endif %}
+                        </span>
+                        <a href="{% url 'complete_activity' activity.pk %}" class="btn btn-custom btn-sm">Registra</a>
+                        <a href="{% url 'edit_activity' activity.pk %}" class="btn btn-custom btn-sm">Modifica</a>
+                        <a href="{% url 'delete_activity' activity.pk %}" class="btn btn-custom btn-sm" onclick="return confirm('Sei sicuro di voler eliminare questa attività?');">Elimina</a>
+                        <a href="{% url 'delete_activity_30days_log' activity.pk %}" class="btn btn-custom btn-sm" onclick="return confirm('Sei sicuro di voler eliminare i log degli ultimi 30 gg di questa attività?');">Elimina registrazioni ultimi 30 gg</a>
+                    </div>
+                </li>
+                {% empty %}
+                <li class="list-group-item bg-dark">Nessuna attività trovata.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Container per il grafico delle attività -->
+<div class="container mt-5">
+    <h1 class="text-center">Report delle attività negli ultimi 60 giorni</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                     {{ chart_image|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card bg-dark text-white">
+      <div class="card-body">
+        <h1>Conferma Eliminazione:</h1>
+        <p>Sei sicuro di voler eliminare "{{ activity.name }}"?</p>  <!-- Mostra un messaggio di conferma con il nome dell'attività -->
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Elimina</button>  <!-- Pulsante per confermare l'eliminazione -->
+          <a href="{% url 'home' %}" class="btn btn-secondary">Annulla</a>  <!-- Link per annullare l'azione e tornare alla home -->
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}
