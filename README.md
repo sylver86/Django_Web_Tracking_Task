@@ -12,12 +12,7 @@ Django Tracking Task is a web application designed to help users efficiently man
 
 ## Technologies Used
 - **Django**: A high-level Python Web framework that encourages rapid development and clean, pragmatic design.
-- **Plotly**: Utilized for creating interactive graphs to track task completion.
 - **Bootstrap**: For responsive design that adapts to different device screens.
-- **Heroku**: Cloud platform for deploying and running the application.
-- **Gunicorn**: A Python WSGI HTTP Server for UNIX, serving Django applications on Heroku.
-- **PostgreSQL**: The primary database used by Heroku for storing data.
-- **Git**: For version control and source code management.
 
 ## Functions Utilized
 - **`generate_plot()`**: Generates interactive plots that provide a graphical view of task completion percentages over time.
