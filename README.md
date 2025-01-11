@@ -29,4 +29,5 @@
 
 ---
 
-## 🔗 **GitHub Repository: Dive into my codebase in the project files contained in this Git repository.**
+## 🔗 GitHub Repository 
+- Dive into my codebase in the project files contained in this Git repository.
