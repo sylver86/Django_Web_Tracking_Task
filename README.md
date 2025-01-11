@@ -26,3 +26,7 @@
 - **`calculate_completion_percentage()`**: Computes completed task percentages based on logged data.
 - **📝 CRUD Operations**: Offers **Create**, **Read**, **Update**, and **Delete** capabilities for tasks via Django’s ORM.
 - **💻 Responsive Templates**: Leverages Bootstrap to provide a fluid user interface on both mobile and desktop devices.
+
+---
+
+## 🔗 **GitHub Repository: Dive into my codebase in the project files contained in this Git repository.**
